@@ -12,16 +12,16 @@ class Product extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function carts()
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasMany(Cart::class);
     }
 
     public function histories()
     {
-        return $this->belongsTo(History::class);
+        return $this->hasMany(History::class);
     }
 }

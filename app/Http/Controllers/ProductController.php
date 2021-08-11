@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 use App\Http\Controllers\CartController;
 
 class ProductController extends Controller
@@ -15,10 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $carts = Cart::with(['user', 'product'])->get();
-        dd($carts->toArray());
-        // $products = Product::get();
-        // return view('pages.products.index', compact('products'));
+        // $carts = Cart::with(['user', 'product'])->get();
+        // dd($carts->toArray());
+        $products = Product::get();
+        return view('pages.products.index', compact('products'));
     }
 
     /**
@@ -60,7 +61,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+         // dd($country->name);
+
+         return view('pages.products.show', compact('product'));
     }
 
     /**

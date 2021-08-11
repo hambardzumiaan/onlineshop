@@ -25,9 +25,7 @@
 				<td>Action</td>  
 			</tr>
 
-			@php
-				$num = 1;
-			@endphp
+			
 
 			@foreach($products as $key => $product)	
 			<tr>
@@ -44,6 +42,10 @@
 					<form action="/products/destroy/{{ $product->id }}" method="POST">
 						@csrf
 						<input type="submit" class="btn btn-danger" value="Delete">
+					</form>
+					<form action="/products/show/{{ $product->id }}" >
+						@csrf
+						<input type="submit" class="btn btn-danger" value="Show">
 					</form>
 				</td>
 			</tr>

@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +17,25 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index']);
-Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create']);
-Route::post('/products/create', [App\Http\Controllers\ProductController::class, 'store']);
-Route::get('/products/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit']);
-Route::post('/products/edit/{id}', [App\Http\Controllers\ProductController::class, 'update']);
-Route::post('/products/destroy/{id}', [App\Http\Controllers\ProductController::class, 'destroy']);
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/show/{id}', [ProductController::class, 'show']);
+Route::get('/products/create', [ProductController::class, 'create']);
+Route::post('/products/create', [ProductController::class, 'store']);
+Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
+Route::post('/products/edit/{id}', [ProductController::class, 'update']);
+Route::post('/products/destroy/{id}', [ProductController::class, 'destroy']);
+
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/profile', [ProfileController::class, 'update']);
+
+
+Route::get('/carts', [CartController::class, 'index']);	
+Route::get('/carts/create/{id}', [CartController::class, 'update']);	
+
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
