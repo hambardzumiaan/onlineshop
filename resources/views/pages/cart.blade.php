@@ -18,20 +18,25 @@
         <td>Name</td>  
         <td>Count</td>  
         <td>Price</td>  
-        <td>Quantity</td>  
         <td>Action</td>  
       </tr>
 
-     @if(session('cart'))
-        @foreach(session('cart') as $id => $details)
+        @foreach($carts as $id => $details)
           <tr>
-            <td>{{ $details['name'] }}</td> 
-            <td>{{ $details['price'] }}</td>
-            <td>{{ $details['count'] }}</td>
-            <td style="width: 10%;">
-              <input rowId="{{ $id }}" type="number" value="{{ $details['quantity'] }}" style="width: 70%; text-align: center;" required>
-
+            <td>{{ $details->product->name }}</td> 
+            <td class="row">
+              <form action="/carts/{{ $details->product->id }}/minus" method="POST" class="mr-2">
+                @csrf
+                <input type="submit" class="btn btn-warning" value="-">
+              </form>
+             <span>{{ $details->count }}</span> 
+              <form action="/carts/{{ $details->product->id }}/plus" method="POST" class="ml-2">
+                @csrf
+                <input type="submit" class="btn btn-warning" value="+">
+              </form>
             </td>
+            <td>{{ $details->product->price * $details->count }}</td>
+        
 
              <td class="row">
               <form action="/carts/destroy/{{ $id }}" method="POST" class="mr-2">
@@ -45,7 +50,6 @@
             </td>
            </tr> 
         @endforeach
-      @endif
     </table>
   </div>
 </body>

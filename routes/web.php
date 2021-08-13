@@ -35,9 +35,12 @@ Route::post('/profile', [ProfileController::class, 'update']);
 Route::post('/carts/create/{id}', [CartController::class, 'addToCart']);	
 Route::get('/carts', [CartController::class, 'index']);	
 Route::post('/carts/destroy/{id}', [CartController::class, 'destroy']);
+Route::post('/carts/{id}/minus', [CartController::class, 'countminus']);
+Route::post('/carts/{id}/plus', [CartController::class, 'countplus']);
 
 
-Route::post('/histories', [HistoryController::class, 'index']);
+// Route::get('/histories', [HistoryController::class, 'index']);
+Route::post('/histories', [HistoryController::class, 'histories']);
 
 
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
+use Auth;
 
 class CartController extends Controller
 {
@@ -17,38 +18,36 @@ class CartController extends Controller
      */
     public function index()
     {
-    	$carts = Cart::with(['user', 'product'])->get();
-    	
+    	$carts = Cart::where('user_id', Auth::id())->with(['user', 'product'])->get();
+    	// dd($carts);
     	// dd($carts->toArray());
-        $products = Product::get();
+        // $products = Product::get();
         // dd($products->toArray());
-        return view('pages.cart', compact('products'));
+        return view('pages.cart', compact('carts'));
     }
 
 
 
     public function addToCart($id)
     {
-    	$carts = Cart::with(['user', 'product'])->get();
-        $product = Product::findOrFail($id);
-           
-        $cart = session()->get('cart', []);
-   
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                "name" => $product->name,
-                "quantity" => 1,
-                'count' => $product->count,
-                "price" => $product->price,
-            ];
+
+        $cart = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
+        // dd($cart);
+
+        if($cart == null){
+            $cart = new Cart();
+            $cart->user_id = Auth::id();
+            $cart->product_id = $id;
+            $cart->count = 1;
+            // dd($cart->toArray());
+        } else{
+            $cart->count++;
         }
 
-        // dd($cart);
-           
-        session()->put('cart', $cart);
-        return redirect('/carts')->with('success', 'Product added to cart successfully!');;
+        $cart->save();
+        return redirect('/carts');
+
+    
     }
    
 
@@ -67,8 +66,23 @@ class CartController extends Controller
     }
 
 
+    public function countminus($id) {
+         $cart = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
+         $cart->count -= 1;
+         $cart->save();
+         // dd($cart->toArray());
 
-    
+         return redirect('/carts');
+    }
+
+    public function countplus($id) {
+         $cart = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
+         $cart->count += 1;
+         $cart->save();
+         // dd($cart->toArray());
+
+         return redirect('/carts');
+    }
 
 //     /**
 //      * Show the form for creating a new resource.
