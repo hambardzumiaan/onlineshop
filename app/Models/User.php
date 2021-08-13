@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function carts()
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasMany(Cart::class);
     }
 
     public function histories()

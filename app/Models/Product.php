@@ -15,9 +15,9 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function carts()
+    public function cart()
     {
-        return $this->hasMany(Cart::class);
+        return $this->belongsTo(Cart::class);
     }
 
     public function histories()

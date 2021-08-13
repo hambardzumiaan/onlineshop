@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\CartController;
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/show/{id}', [ProductController::class, 'show']);
+Route::post('/products/show/{id}', [ProductController::class, 'show']);
 Route::get('/products/create', [ProductController::class, 'create']);
 Route::post('/products/create', [ProductController::class, 'store']);
 Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
@@ -29,8 +31,13 @@ Route::get('/profile', [ProfileController::class, 'index']);
 Route::post('/profile', [ProfileController::class, 'update']);
 
 
+// Route::get('/carts', [CartController::class, 'A']);	
+Route::post('/carts/create/{id}', [CartController::class, 'addToCart']);	
 Route::get('/carts', [CartController::class, 'index']);	
-Route::get('/carts/create/{id}', [CartController::class, 'update']);	
+Route::post('/carts/destroy/{id}', [CartController::class, 'destroy']);
+
+
+Route::post('/histories', [HistoryController::class, 'index']);
 
 
 

@@ -39,11 +39,11 @@
 				
 				<td class="row">
 					<a href="/products/edit/{{ $product->id }}" class="btn btn-warning mr-2">Edit</a>
-					<form action="/products/destroy/{{ $product->id }}" method="POST">
+					<form action="/products/destroy/{{ $product->id }}" method="POST" class="mr-2">
 						@csrf
 						<input type="submit" class="btn btn-danger" value="Delete">
 					</form>
-					<form action="/products/show/{{ $product->id }}" >
+					<form action="/products/show/{{ $product->id }}" method="POST">
 						@csrf
 						<input type="submit" class="btn btn-danger" value="Show">
 					</form>
